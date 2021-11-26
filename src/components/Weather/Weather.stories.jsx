@@ -6,4 +6,5 @@ export default {
   component: Weather,
 };
 
-export const WeatherExample = () => <Weather temp={10} />;
+export const WeatherCloud = () => <Weather temp={10} icon="cloud" />;
+export const WeatherSunny = () => <Weather temp={10} icon="sunny" />;
