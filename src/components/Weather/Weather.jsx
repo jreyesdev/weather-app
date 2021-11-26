@@ -19,8 +19,7 @@ const stateByName = {
 };
 
 const RenderIconState = ({ name }) => {
-  const IconRender =
-    stateByName[name] !== undefined ? stateByName[name] : stateByName.sunny;
+  const IconRender = stateByName[name];
   return <IconRender />;
 };
 
@@ -41,7 +40,7 @@ RenderIconState.propTypes = {
 
 Weather.propTypes = {
   temp: PropTypes.number.isRequired,
-  icon: PropTypes.string.isRequired,
+  icon: PropTypes.oneOf(Object.keys(stateByName)).isRequired,
 };
 
 export default Weather;
