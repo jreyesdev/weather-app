@@ -26,7 +26,10 @@ const CITIES = [
 ];
 
 test("City List render", async () => {
-  const { findAllByRole } = render(<CityList cities={CITIES} />);
+  const fnClickOnItem = jest.fn();
+  const { findAllByRole } = render(
+    <CityList cities={CITIES} onClickCity={fnClickOnItem} />
+  );
   const Cities = await findAllByRole("listitem");
   expect(Cities).toHaveLength(CITIES.length);
 });
