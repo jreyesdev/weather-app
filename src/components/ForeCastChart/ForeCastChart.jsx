@@ -8,17 +8,13 @@ import {
   Tooltip,
   XAxis,
   YAxis,
+  ResponsiveContainer,
 } from "recharts";
 
 const ForeCastChart = ({ data }) => {
   return (
-    <>
-      <LineChart
-        height={250}
-        width={700}
-        margin={{ top: 20, left: 5, bottom: 20 }}
-        data={data}
-      >
+    <ResponsiveContainer height={300} width={"95%"}>
+      <LineChart margin={{ top: 20, left: 5, bottom: 20 }} data={data}>
         <XAxis dataKey="dayHour" />
         <YAxis />
         <CartesianGrid />
@@ -27,7 +23,7 @@ const ForeCastChart = ({ data }) => {
         <Line dataKey="max" type="monotone" stroke="#FF0000" />
         <Line dataKey="min" type="monotone" stroke="#0000FF" />
       </LineChart>
-    </>
+    </ResponsiveContainer>
   );
 };
 
