@@ -21,7 +21,7 @@ const renderForeCastItem = ({ weekDay, hour, state, temperature }) => (
 
 const ForeCast = ({ itemList }) => {
   return (
-    <Grid container justifyContent="center" alignItems="center">
+    <Grid container justifyContent="space-around" alignItems="center">
       {itemList.map((fore) => renderForeCastItem(fore))}
     </Grid>
   );
