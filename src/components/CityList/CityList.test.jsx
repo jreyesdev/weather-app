@@ -30,7 +30,7 @@ test("City List render", async () => {
   const { findAllByRole } = render(
     <CityList cities={CITIES} onClickCity={fnClickOnItem} />
   );
-  const Cities = await findAllByRole("listitem");
+  const Cities = await findAllByRole("button");
   expect(Cities).toHaveLength(CITIES.length);
 });
 
@@ -39,7 +39,7 @@ test("CityList click on item", async () => {
   const { findAllByRole } = render(
     <CityList cities={CITIES} onClickCity={fnClickOnItem} />
   );
-  const items = await findAllByRole("listitem");
+  const items = await findAllByRole("button");
   fireEvent.click(items[0]);
   expect(fnClickOnItem).toHaveBeenCalledTimes(1);
 });
