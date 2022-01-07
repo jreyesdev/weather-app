@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import Grid from "@mui/material/Grid";
 import CityInfo from "../components/CityInfo/CityInfo";
 import Weather from "../components/Weather/Weather";
@@ -27,17 +26,19 @@ const data = [
 
 const CityPage = () => {
   return (
-    <Grid container justifyContent="center" direction="column">
-      <Grid item xs={12}>
+    <Grid container justifyContent="center" direction="column" spacing={2}>
+      <Grid
+        container
+        justifyContent="center"
+        alignItems="flex-end"
+        item
+        xs={12}
+      >
         <CityInfo city="Caracas" country="Venezuela" />
       </Grid>
-      <Grid container item xs={12}>
-        <Grid item xs={8}>
-          <Weather icon="cloudy" temp={20} />
-        </Grid>
-        <Grid item xs={4}>
-          <WeatherDetails humidity={80} wind={9} />
-        </Grid>
+      <Grid container justifyContent="center" item xs={12}>
+        <Weather icon="cloudy" temp={20} />
+        <WeatherDetails humidity={80} wind={9} />
       </Grid>
       <Grid item>
         <ForeCastChart data={data} />
@@ -48,7 +49,5 @@ const CityPage = () => {
     </Grid>
   );
 };
-
-CityPage.propTypes = {};
 
 export default CityPage;

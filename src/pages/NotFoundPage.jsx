@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 const NotFoundPage = (props) => {
@@ -10,7 +9,5 @@ const NotFoundPage = (props) => {
     </div>
   );
 };
-
-NotFoundPage.propTypes = {};
 
 export default NotFoundPage;
