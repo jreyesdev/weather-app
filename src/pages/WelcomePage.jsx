@@ -23,7 +23,7 @@ const WelcomePage = () => {
             alignItems="center"
           >
             <Grid item>
-              <IconContext.Provider value={{ size: "2em" }}>
+              <IconContext.Provider value={{ size: "6em" }}>
                 <WiDaySunny />
               </IconContext.Provider>
             </Grid>
