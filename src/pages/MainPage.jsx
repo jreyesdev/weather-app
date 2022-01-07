@@ -1,7 +1,8 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-//import PropTypes from "prop-types";
+import Paper from "@mui/material/Paper";
 
+import AppFrame from "../components/AppFrame";
 import CityList from "../components/CityList/CityList";
 
 const cities = [
@@ -35,13 +36,13 @@ const MainPage = () => {
   };
 
   return (
-    <div>
+    <AppFrame>
       <h2>Lista de ciudades</h2>
-      <CityList cities={cities} onClickCity={clickCity} />
-    </div>
+      <Paper elevation={3}>
+        <CityList cities={cities} onClickCity={clickCity} />
+      </Paper>
+    </AppFrame>
   );
 };
-
-//MainPage.propTypes = {};
 
 export default MainPage;
