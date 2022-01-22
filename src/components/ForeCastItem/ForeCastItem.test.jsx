@@ -5,7 +5,7 @@ import ForeCastItem from "./ForeCastItem";
 const props = {
   weekDay: "Lunes",
   hour: 10,
-  state: "sunny",
+  state: "clear",
   temperature: 23,
 };
 
