@@ -8,21 +8,25 @@ import CityList from "../components/CityList/CityList";
 const cities = [
   {
     country: "Venezuela",
+    countryCode: "VE",
     city: "Caracas",
     temp: 23,
   },
   {
     country: "Estados Unidos",
+    countryCode: "US",
     city: "Miami",
     temp: 18,
   },
   {
     country: "Brasil",
+    countryCode: "BR",
     city: "Rio de janeiro",
     temp: 25,
   },
   {
     country: "Alemania",
+    countryCode: "DE",
     city: "Munich",
     temp: 13,
   },
