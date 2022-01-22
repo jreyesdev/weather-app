@@ -10,32 +10,40 @@ import WeatherAxios from "../../api/WeatherAxios";
 
 const CityList = ({ cities, onClickCity }) => {
   const [allWeather, setAllWeather] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
-  const icon = "rain";
 
   useEffect(() => {
-    //getInfoCity(cities[1].city);
-  }, []);
+    cities.forEach((c, i) => {
+      getInfoCity(c, i);
+    });
+  }, [cities]);
 
-  const getInfoCity = async (ciudad) => {
+  const getInfoCity = async ({ city, country, countryCode }, i) => {
     const resp = await WeatherAxios.get("/weather", {
       params: {
-        q: ciudad,
+        q: `${city},${countryCode}`,
       },
     });
+    const prop = `${i}-${country}`,
+      propValue = {};
+    propValue.temp = resp.data.main.temp || 0;
+    propValue.icon = resp.data.weather[0].main.toLowerCase() || "clear";
+    setAllWeather((current) => ({ ...current, [prop]: propValue }));
   };
 
   return (
     <List>
       {cities.map((e, i) => (
-        <ListItem button key={i} onClick={onClickCity}>
+        <ListItem button key={`${i}-${e.country}`} onClick={onClickCity}>
           <Grid container justifyContent="center" alignItems="center">
             <Grid item xs={12} md={8}>
               <CityInfo city={e.city} country={e.country} />
             </Grid>
             <Grid item xs={12} md={4}>
-              {e.temp && e.icon ? (
-                <Weather temp={e.temp} icon={icon} />
+              {allWeather[`${i}-${e.country}`] ? (
+                <Weather
+                  temp={allWeather[`${i}-${e.country}`]["temp"]}
+                  icon={allWeather[`${i}-${e.country}`]["icon"]}
+                />
               ) : (
                 "No hay datos"
               )}
@@ -52,6 +60,7 @@ CityList.propTypes = {
     PropTypes.shape({
       city: PropTypes.string.isRequired,
       country: PropTypes.string.isRequired,
+      countryCode: PropTypes.string.isRequired,
     })
   ).isRequired,
   onClickCity: PropTypes.func.isRequired,
