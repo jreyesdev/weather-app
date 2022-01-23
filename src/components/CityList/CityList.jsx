@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Grid from "@mui/material/Grid";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
+import Skeleton from "@mui/material/Skeleton";
 import ConvertUnits from "convert-units";
 
 import CityInfo from "../CityInfo/CityInfo";
@@ -11,6 +12,7 @@ import WeatherAxios from "../../api/WeatherAxios";
 
 const CityList = ({ cities, onClickCity }) => {
   const [allWeather, setAllWeather] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     cities.forEach((c, i) => {
@@ -33,6 +35,7 @@ const CityList = ({ cities, onClickCity }) => {
         );
         propValue.icon = resp.data.weather[0].main.toLowerCase();
         setAllWeather((current) => ({ ...current, [prop]: propValue }));
+        setLoading(false);
       }
     } catch (e) {
       console.error(e);
@@ -53,6 +56,8 @@ const CityList = ({ cities, onClickCity }) => {
                   temp={allWeather[`${i}-${e.country}`]["temp"]}
                   icon={allWeather[`${i}-${e.country}`]["icon"]}
                 />
+              ) : loading ? (
+                <LoadingCities />
               ) : (
                 "Sin datos"
               )}
@@ -63,6 +68,20 @@ const CityList = ({ cities, onClickCity }) => {
     </List>
   );
 };
+
+function LoadingCities() {
+  return (
+    <Grid container justifyContent="left" alignItems="center">
+      <Skeleton
+        variant="circular"
+        width={80}
+        height={80}
+        style={{ marginRight: "20px" }}
+      />
+      <Skeleton variant="rectangular" width={80} height={80} />
+    </Grid>
+  );
+}
 
 CityList.propTypes = {
   cities: PropTypes.arrayOf(
