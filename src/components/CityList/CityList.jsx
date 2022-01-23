@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Grid from "@mui/material/Grid";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
+import ConvertUnits from "convert-units";
 
 import CityInfo from "../CityInfo/CityInfo";
 import Weather from "../Weather/Weather";
@@ -25,8 +26,12 @@ const CityList = ({ cities, onClickCity }) => {
     });
     const prop = `${i}-${country}`,
       propValue = {};
-    propValue.temp = resp.data.main.temp || 0;
-    propValue.icon = resp.data.weather[0].main.toLowerCase() || "clear";
+    propValue.temp = resp.data
+      ? Number(ConvertUnits(resp.data.main.temp).from("K").to("C").toFixed(0))
+      : 0;
+    propValue.icon = resp.data
+      ? resp.data.weather[0].main.toLowerCase()
+      : "clear";
     setAllWeather((current) => ({ ...current, [prop]: propValue }));
   };
 
