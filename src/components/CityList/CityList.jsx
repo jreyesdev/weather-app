@@ -19,20 +19,24 @@ const CityList = ({ cities, onClickCity }) => {
   }, [cities]);
 
   const getInfoCity = async ({ city, country, countryCode }, i) => {
-    const resp = await WeatherAxios.get("/weather", {
-      params: {
-        q: `${city},${countryCode}`,
-      },
-    });
-    const prop = `${i}-${country}`,
-      propValue = {};
-    propValue.temp = resp.data
-      ? Number(ConvertUnits(resp.data.main.temp).from("K").to("C").toFixed(0))
-      : 0;
-    propValue.icon = resp.data
-      ? resp.data.weather[0].main.toLowerCase()
-      : "clear";
-    setAllWeather((current) => ({ ...current, [prop]: propValue }));
+    try {
+      const resp = await WeatherAxios.get("/weather", {
+        params: {
+          q: `${city},${countryCode}`,
+        },
+      });
+      if (resp.data.main.temp) {
+        const prop = `${i}-${country}`,
+          propValue = {};
+        propValue.temp = Number(
+          ConvertUnits(resp.data.main.temp).from("K").to("C").toFixed(0)
+        );
+        propValue.icon = resp.data.weather[0].main.toLowerCase();
+        setAllWeather((current) => ({ ...current, [prop]: propValue }));
+      }
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
@@ -50,7 +54,7 @@ const CityList = ({ cities, onClickCity }) => {
                   icon={allWeather[`${i}-${e.country}`]["icon"]}
                 />
               ) : (
-                "No hay datos"
+                "Sin datos"
               )}
             </Grid>
           </Grid>
