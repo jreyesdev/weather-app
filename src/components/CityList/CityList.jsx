@@ -64,7 +64,11 @@ const CityList = ({ cities, onClickCity }) => {
       )}
       <List>
         {cities.map((e, i) => (
-          <ListItem button key={`${i}-${e.country}`} onClick={onClickCity}>
+          <ListItem
+            button
+            key={`${i}-${e.country}`}
+            onClick={() => onClickCity(e)}
+          >
             <Grid container justifyContent="center" alignItems="center">
               <Grid item xs={12} md={8}>
                 <CityInfo city={e.city} country={e.country} />

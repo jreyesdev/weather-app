@@ -35,8 +35,8 @@ const cities = [
 const MainPage = () => {
   const history = useHistory();
 
-  const clickCity = () => {
-    history.push("/city");
+  const clickCity = ({ countryCode, city }) => {
+    history.push(`/city/${countryCode}/${city}`);
   };
 
   return (
