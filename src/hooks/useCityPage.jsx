@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import ConvertUnits from "convert-units";
 import moment from "moment";
 import "moment/locale/es";
-import WeatherAxios from "../api/WeatherAxios";
+import { getForecastData } from "../api/WeatherAxios";
 
 function convertCelsius(temp) {
   return Number(ConvertUnits(temp).from("K").to("C").toFixed(0));
@@ -23,11 +23,7 @@ const useCityPage = () => {
 
   const getCityForecast = async () => {
     try {
-      const { data } = await WeatherAxios.get("/forecast", {
-        params: {
-          q: `${city},${countryCode}`,
-        },
-      });
+      const { data } = await getForecastData(city, countryCode);
 
       const days = [0, 1, 2, 3, 4, 5].map((d) => moment().add(d, "d"));
 

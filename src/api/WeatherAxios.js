@@ -7,4 +7,16 @@ const WeatherAxios = Axios.create({
   },
 });
 
+const getData = async (url, params) => await WeatherAxios.get(url, { params });
+
+export const getWeatherData = async (...args) =>
+  await getData("/weather", {
+    q: args.join(","),
+  });
+
+export const getForecastData = async (...args) =>
+  await getData("/forecast", {
+    q: args.join(","),
+  });
+
 export default WeatherAxios;

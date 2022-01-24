@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ConvertUnits from "convert-units";
 
-import WeatherAxios from "../api/WeatherAxios";
+import { getWeatherData } from "../api/WeatherAxios";
 
 const useCityList = (cities) => {
   const [allWeather, setAllWeather] = useState({});
@@ -16,23 +16,17 @@ const useCityList = (cities) => {
 
   const getInfoCity = async ({ city, country, countryCode }, i) => {
     try {
-      const resp = await WeatherAxios.get("/weather", {
-        params: {
-          q: `${city},${countryCode}`,
-        },
-      });
-      if (resp.data.main.temp) {
-        const propValue = {};
-        propValue.temp = Number(
-          ConvertUnits(resp.data.main.temp).from("K").to("C").toFixed(0)
-        );
-        propValue.icon = resp.data.weather[0].main.toLowerCase();
-        setAllWeather((current) => ({
-          ...current,
-          [`${i}-${country}`]: propValue,
-        }));
-        setLoading(false);
-      }
+      const { data } = await getWeatherData(city, countryCode);
+      const propValue = {};
+      propValue.temp = Number(
+        ConvertUnits(data.main.temp).from("K").to("C").toFixed(0)
+      );
+      propValue.icon = data.weather[0].main.toLowerCase();
+      setAllWeather((current) => ({
+        ...current,
+        [`${i}-${country}`]: propValue,
+      }));
+      setLoading(false);
     } catch (e) {
       console.error(e);
       setError((currentError) => {
