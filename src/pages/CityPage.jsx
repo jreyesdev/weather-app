@@ -1,5 +1,6 @@
 import React from "react";
 import Grid from "@mui/material/Grid";
+import Skeleton from "@mui/material/Skeleton";
 
 import AppFrame from "../components/AppFrame";
 import CityInfo from "../components/CityInfo/CityInfo";
@@ -25,18 +26,52 @@ const CityPage = () => {
           <CityInfo city={city} country={countryCode} />
         </Grid>
         <Grid container justifyContent="center" item xs={12}>
-          {weather && <Weather icon={weather.state} temp={weather.temp} />}
-          {weather && (
-            <WeatherDetails humidity={weather.humidity} wind={weather.wind} />
+          {weather ? (
+            <WeatherComponent weather={weather} />
+          ) : (
+            <LoadingWeather />
           )}
         </Grid>
-        <Grid item>{chartData && <ForeCastChart data={chartData} />}</Grid>
+        <Grid item>
+          {chartData ? (
+            <ForeCastChart data={chartData} />
+          ) : (
+            <Skeleton width="100%" height={300} />
+          )}
+        </Grid>
         <Grid item style={{ marginBottom: "20px" }}>
-          {itemsList && <ForeCast itemList={itemsList} />}
+          {itemsList ? (
+            <ForeCast itemList={itemsList} />
+          ) : (
+            <Skeleton width="100%" height={300} />
+          )}
         </Grid>
       </Grid>
     </AppFrame>
   );
 };
+
+const WeatherComponent = ({ weather }) => (
+  <>
+    <Weather icon={weather.state} temp={weather.temp} />
+    <WeatherDetails humidity={weather.humidity} wind={weather.wind} />
+  </>
+);
+
+function LoadingWeather() {
+  return (
+    <Grid direction="column" xs={12} sm={4}>
+      <Skeleton width="100%" height={96} />
+      <Grid container justifyContent="center" spacing={3}>
+        <Grid item xs={6}>
+          <Skeleton />
+        </Grid>
+        <Grid item xs={6}>
+          <Skeleton />
+        </Grid>
+      </Grid>
+    </Grid>
+  );
+}
 
 export default CityPage;
