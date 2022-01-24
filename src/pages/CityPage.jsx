@@ -8,10 +8,10 @@ import Weather from "../components/Weather/Weather";
 import WeatherDetails from "../components/WeatherDetails/WeatherDetails";
 
 const ITEMS_FORE = [
-  { hour: 18, state: "sunny", temperature: 23, weekDay: "Jueves" },
-  { hour: 6, state: "cloud", temperature: 17, weekDay: "Viernes" },
-  { hour: 12, state: "fog", temperature: 18, weekDay: "Viernes" },
-  { hour: 18, state: "cloudy", temperature: 19, weekDay: "Viernes" },
+  { hour: 18, state: "clear", temperature: 23, weekDay: "Jueves" },
+  { hour: 6, state: "clouds", temperature: 17, weekDay: "Viernes" },
+  { hour: 12, state: "drizzle", temperature: 18, weekDay: "Viernes" },
+  { hour: 18, state: "clouds", temperature: 19, weekDay: "Viernes" },
   { hour: 14, state: "rain", temperature: 17, weekDay: "Sábado" },
   { hour: 18, state: "rain", temperature: 17, weekDay: "Sábado" },
 ];
@@ -39,13 +39,13 @@ const CityPage = () => {
           <CityInfo city="Caracas" country="Venezuela" />
         </Grid>
         <Grid container justifyContent="center" item xs={12}>
-          <Weather icon="cloudy" temp={20} />
+          <Weather icon="clouds" temp={20} />
           <WeatherDetails humidity={80} wind={9} />
         </Grid>
         <Grid item>
           <ForeCastChart data={data} />
         </Grid>
-        <Grid item>
+        <Grid item style={{ marginBottom: "20px" }}>
           <ForeCast itemList={ITEMS_FORE} />
         </Grid>
       </Grid>
