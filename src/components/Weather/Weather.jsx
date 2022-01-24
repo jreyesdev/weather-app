@@ -11,7 +11,7 @@ const Weather = ({ temp, icon }) => {
       container
       item
       direction="row"
-      justifyItems="center"
+      justifyContent="center"
       alignItems="center"
       spacing={1}
     >
