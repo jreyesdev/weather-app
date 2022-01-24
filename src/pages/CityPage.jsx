@@ -60,7 +60,14 @@ const WeatherComponent = ({ weather }) => (
 
 function LoadingWeather() {
   return (
-    <Grid direction="column" xs={12} sm={4}>
+    <Grid
+      container
+      direction="column"
+      justifyContent="center"
+      item
+      xs={12}
+      sm={4}
+    >
       <Skeleton width="100%" height={96} />
       <Grid container justifyContent="center" spacing={3}>
         <Grid item xs={6}>
