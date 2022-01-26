@@ -14,5 +14,6 @@ REACT_APP_OPENWEATHER_KEY=
 ## Usage
 
 ```bash
+npm install
 npm run start
 ```
