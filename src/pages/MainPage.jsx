@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import Paper from "@mui/material/Paper";
 
@@ -35,9 +35,12 @@ const cities = [
 const MainPage = () => {
   const history = useHistory();
 
-  const clickCity = ({ countryCode, city }) => {
-    history.push(`/city/${countryCode}/${city}`);
-  };
+  const clickCity = useCallback(
+    ({ countryCode, city }) => {
+      history.push(`/city/${countryCode}/${city}`);
+    },
+    [history]
+  );
 
   return (
     <AppFrame>
