@@ -1,14 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import ConvertUnits from "convert-units";
 import moment from "moment";
 import "moment/locale/es";
 import { getForecastData } from "../api/WeatherAxios";
-
-function convertCelsius(temp) {
-  return Number(ConvertUnits(temp).from("K").to("C").toFixed(0));
-}
+import { toCelsius } from "../utils";
 
 const useCityPage = () => {
   const { city, countryCode } = useParams();
@@ -36,8 +32,8 @@ const useCityPage = () => {
 
         return {
           dayHour: d.format("ddd"),
-          min: convertCelsius(Math.min(...temps)),
-          max: convertCelsius(Math.max(...temps)),
+          min: toCelsius(Math.min(...temps)),
+          max: toCelsius(Math.max(...temps)),
         };
       });
 
@@ -47,13 +43,13 @@ const useCityPage = () => {
           hour: moment.unix(item.dt).hour(),
           weekDay: moment.unix(item.dt).format("dddd"),
           state: item.weather[0].main.toLowerCase(),
-          temperature: convertCelsius(item.main.temp),
+          temperature: toCelsius(item.main.temp),
         }));
 
       setWeather({
         humidity: data.list[0].main.humidity,
         state: data.list[0].weather[0].main.toLowerCase(),
-        temp: convertCelsius(data.list[0].main.temp),
+        temp: toCelsius(data.list[0].main.temp),
         wind: data.list[0].wind.speed,
       });
       setChartData(daysAux);

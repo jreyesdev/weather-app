@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import ConvertUnits from "convert-units";
 
 import { getWeatherData } from "../api/WeatherAxios";
+import { toCelsius } from "../utils";
 
 const useCityList = (cities) => {
   const [allWeather, setAllWeather] = useState({});
@@ -18,9 +18,7 @@ const useCityList = (cities) => {
     try {
       const { data } = await getWeatherData(city, countryCode);
       const propValue = {};
-      propValue.temp = Number(
-        ConvertUnits(data.main.temp).from("K").to("C").toFixed(0)
-      );
+      propValue.temp = toCelsius(data.main.temp);
       propValue.icon = data.weather[0].main.toLowerCase();
       setAllWeather((current) => ({
         ...current,
