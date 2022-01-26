@@ -4,33 +4,7 @@ import Paper from "@mui/material/Paper";
 
 import AppFrame from "../components/AppFrame";
 import CityList from "../components/CityList/CityList";
-
-const cities = [
-  {
-    country: "Venezuela",
-    countryCode: "VE",
-    city: "Caracas",
-    temp: 23,
-  },
-  {
-    country: "Estados Unidos",
-    countryCode: "US",
-    city: "Miami",
-    temp: 18,
-  },
-  {
-    country: "Brasil",
-    countryCode: "BR",
-    city: "Rio de janeiro",
-    temp: 25,
-  },
-  {
-    country: "Alemania",
-    countryCode: "DE",
-    city: "Munich",
-    temp: 13,
-  },
-];
+import { cities } from "../utils";
 
 const MainPage = () => {
   const history = useHistory();
