@@ -1,20 +1,27 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-
 import moment from "moment";
 import "moment/locale/es";
+
 import { getForecastData } from "../api/WeatherAxios";
+import useCityPageReducer from "../reducers/useCityPageReducer";
 import { toCelsius } from "../utils";
 
 const useCityPage = () => {
   const { city, countryCode } = useParams();
 
-  const [chartData, setChartData] = useState(null);
-  const [itemsList, setItemsList] = useState(null);
-  const [weather, setWeather] = useState(null);
+  const {
+    dispatch,
+    state: { itemsList, chartData, weather },
+  } = useCityPageReducer({
+    chartData: null,
+    itemsList: null,
+    weather: null,
+  });
 
   useEffect(() => {
     getCityForecast();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [city, countryCode]);
 
   const getCityForecast = async () => {
@@ -46,14 +53,17 @@ const useCityPage = () => {
           temperature: toCelsius(item.main.temp),
         }));
 
-      setWeather({
-        humidity: data.list[0].main.humidity,
-        state: data.list[0].weather[0].main.toLowerCase(),
-        temp: toCelsius(data.list[0].main.temp),
-        wind: data.list[0].wind.speed,
+      dispatch({
+        type: "SET_WEATHER",
+        payload: {
+          humidity: data.list[0].main.humidity,
+          state: data.list[0].weather[0].main.toLowerCase(),
+          temp: toCelsius(data.list[0].main.temp),
+          wind: data.list[0].wind.speed,
+        },
       });
-      setChartData(daysAux);
-      setItemsList(forecast);
+      dispatch({ type: "SET_CHART_DATA", payload: daysAux });
+      dispatch({ type: "SET_ITEMS_LIST", payload: forecast });
     } catch (e) {
       console.error(e);
     }
