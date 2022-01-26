@@ -27,7 +27,10 @@ const CityPage = () => {
         </Grid>
         <Grid container justifyContent="center" item xs={12}>
           {weather ? (
-            <WeatherComponent weather={weather} />
+            <>
+              <Weather icon={weather.state} temp={weather.temp} />
+              <WeatherDetails humidity={weather.humidity} wind={weather.wind} />
+            </>
           ) : (
             <LoadingWeather />
           )}
@@ -50,13 +53,6 @@ const CityPage = () => {
     </AppFrame>
   );
 };
-
-const WeatherComponent = ({ weather }) => (
-  <>
-    <Weather icon={weather.state} temp={weather.temp} />
-    <WeatherDetails humidity={weather.humidity} wind={weather.wind} />
-  </>
-);
 
 function LoadingWeather() {
   return (

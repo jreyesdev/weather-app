@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import PropTypes from "prop-types";
 import Typography from "@mui/material/Typography";
 
@@ -18,4 +18,4 @@ WeatherDetails.propTypes = {
   wind: PropTypes.number.isRequired,
 };
 
-export default WeatherDetails;
+export default memo(WeatherDetails);

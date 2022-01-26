@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import PropTypes from "prop-types";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -28,4 +28,4 @@ Weather.propTypes = {
   icon: PropTypes.oneOf(validValues).isRequired,
 };
 
-export default Weather;
+export default memo(Weather);

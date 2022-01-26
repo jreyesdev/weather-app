@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import PropTypes from "prop-types";
 import {
   CartesianGrid,
@@ -37,4 +37,4 @@ ForeCastChart.propTypes = {
   ).isRequired,
 };
 
-export default ForeCastChart;
+export default memo(ForeCastChart);
