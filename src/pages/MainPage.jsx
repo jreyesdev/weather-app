@@ -4,7 +4,6 @@ import Paper from "@mui/material/Paper";
 
 import AppFrame from "../components/AppFrame";
 import CityList from "../components/CityList/CityList";
-import { cities } from "../utils";
 
 const MainPage = () => {
   const history = useHistory();
@@ -20,7 +19,7 @@ const MainPage = () => {
     <AppFrame>
       <h2>Lista de ciudades</h2>
       <Paper elevation={3}>
-        <CityList cities={cities} onClickCity={clickCity} />
+        <CityList onClickCity={clickCity} />
       </Paper>
     </AppFrame>
   );

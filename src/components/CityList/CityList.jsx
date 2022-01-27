@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import Alert from "@mui/material/Alert";
 import Grid from "@mui/material/Grid";
@@ -9,8 +9,10 @@ import Skeleton from "@mui/material/Skeleton";
 import CityInfo from "../CityInfo/CityInfo";
 import Weather from "../Weather/Weather";
 import useCityList from "../../hooks/useCityList";
+import { WeatherContext } from "../../contexts/WeatherContext";
 
-const CityList = ({ cities, onClickCity }) => {
+const CityList = ({ onClickCity }) => {
+  const cities = useContext(WeatherContext);
   const { allWeather, error, loading, setError } = useCityList(cities);
 
   return (
@@ -29,7 +31,7 @@ const CityList = ({ cities, onClickCity }) => {
           >
             <Grid container justifyContent="center" alignItems="center">
               <Grid item xs={12} md={8}>
-                <CityInfo city={e.city} country={e.country} />
+                <CityInfo city={e.city} countryCode={e.countryCode} />
               </Grid>
               <Grid item xs={12} md={4}>
                 {allWeather[`${i}-${e.country}`] ? (
@@ -66,13 +68,6 @@ function LoadingCities() {
 }
 
 CityList.propTypes = {
-  cities: PropTypes.arrayOf(
-    PropTypes.shape({
-      city: PropTypes.string.isRequired,
-      country: PropTypes.string.isRequired,
-      countryCode: PropTypes.string.isRequired,
-    })
-  ).isRequired,
   onClickCity: PropTypes.func.isRequired,
 };
 

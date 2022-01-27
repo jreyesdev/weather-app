@@ -23,7 +23,7 @@ const CityPage = () => {
           item
           xs={12}
         >
-          <CityInfo city={city} country={countryCode} />
+          <CityInfo city={city} countryCode={countryCode} />
         </Grid>
         <Grid container justifyContent="center" item xs={12}>
           {weather ? (

@@ -1,7 +1,7 @@
 import React from "react";
 import CityList from "./CityList";
 import { action } from "@storybook/addon-actions";
-import { cities } from "../../utils";
+import WeatherProvider from "../../contexts/WeatherContext";
 
 export default {
   title: "CityList",
@@ -9,5 +9,7 @@ export default {
 };
 
 export const CityListExample = () => (
-  <CityList cities={cities} onClickCity={action("Click en city")} />
+  <WeatherProvider>
+    <CityList onClickCity={action("Click en city")} />
+  </WeatherProvider>
 );
