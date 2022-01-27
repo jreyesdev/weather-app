@@ -1,5 +1,6 @@
 import React from "react";
 import "typeface-roboto";
+import WeatherProvider from "../../contexts/WeatherContext";
 import CityInfo from "./CityInfo";
 
 export default {
@@ -7,6 +8,8 @@ export default {
   component: CityInfo,
 };
 
-export const CityExample = (params) => {
-  return <CityInfo city="Caracas" country="Venezuela" />;
-};
+export const CityExample = () => (
+  <WeatherProvider>
+    <CityInfo city="Caracas" countryCode="VE" />
+  </WeatherProvider>
+);
