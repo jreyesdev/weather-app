@@ -16,13 +16,14 @@ jobs:
         with:
             node-version: '16'
       
+      - name: Install npm dependencies
+        run: npm install
+        
       - name: 🔨 Build Project
         env:
           REACT_APP_OPENWEATHER_KEY: ${{ secrets.REACT_APP_OPENWEATHER_KEY }}
           REACT_APP_OPENWEATHER_URL: ${{ secrets.REACT_APP_OPENWEATHER_URL }}
-        run: |
-            npm ci
-            npm run build
+        run: npm run build
             
       - name: 📂 Deploy to Server
         uses: easingthemes/ssh-deploy@main
