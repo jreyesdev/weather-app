@@ -1,0 +1,37 @@
+name: Deploy to Amazon ECS
+
+on:
+  push:
+     branches: [main]
+jobs:
+  deploy-SFTP:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v3
+        
+      - name: Use Node.js 16
+        uses: actions/setup-node@v2-beta
+        with:
+            node-version: '16'
+      
+      - name: 🔨 Build Project
+        env:
+          REACT_APP_OPENWEATHER_KEY: ${{ secrets.REACT_APP_OPENWEATHER_KEY }}
+          REACT_APP_OPENWEATHER_URL: ${{ secrets.REACT_APP_OPENWEATHER_URL }}
+        run: |
+            npm ci
+            npm run build
+            
+      - name: 📂 Deploy to Server
+        uses: easingthemes/ssh-deploy@main
+        env:
+            SSH_PRIVATE_KEY: ${{ secrets.PRUEBA_KEY_AWS }}
+            ARGS: "-rltgoDzvO"
+            SOURCE: 'build/'
+            REMOTE_HOST: ${{ secrets.HOST_AWS_DEPLOY }}
+            REMOTE_USER: ${{ secrets.USER_AWS_DEPLOYER }}
+            TARGET: ${{ secrets.DIRECTORY_DEPLOY }}
+            EXCLUDE: '/dist/, /node_modules/'
+
