@@ -35,10 +35,9 @@ jobs:
         uses: easingthemes/ssh-deploy@v2
         env:
             SSH_PRIVATE_KEY: ${{ secrets.PRUEBA_KEY_AWS }}
-            ARGS: "-rltgoDzvO"
+            ARGS: '-rltgoDzvO --delete'
             SOURCE: 'build/'
             REMOTE_HOST: ${{ secrets.HOST_AWS_DEPLOY }}
             REMOTE_USER: ${{ secrets.USER_AWS_DEPLOYER }}
             TARGET: ${{ secrets.DIRECTORY_DEPLOY }}
             EXCLUDE: '/dist/, /node_modules/'
-
