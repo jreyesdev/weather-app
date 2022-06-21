@@ -8,6 +8,11 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
+      - name: Install rsync
+        run: |
+          sudo apt-get update
+          sudo apt-get install rsync
+          
       - name: 🚚 Get latest code
         uses: actions/checkout@v3
         
@@ -26,7 +31,7 @@ jobs:
         run: npm run build
             
       - name: 📂 Deploy to Server
-        uses: easingthemes/ssh-deploy@main
+        uses: easingthemes/ssh-deploy@v2
         env:
             SSH_PRIVATE_KEY: ${{ secrets.PRUEBA_KEY_AWS }}
             ARGS: "-rltgoDzvO"
