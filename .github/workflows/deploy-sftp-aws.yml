@@ -16,7 +16,7 @@ jobs:
         with:
             node-version: '16'
       
-      - name: Install npm dependencies
+      - name: ":arrow_down: Install npm dependencies"
         run: npm install
         
       - name: 🔨 Build Project
@@ -25,7 +25,7 @@ jobs:
           REACT_APP_OPENWEATHER_URL: ${{ secrets.REACT_APP_OPENWEATHER_URL }}
         run: npm run build
         
-      - name: 📂 Deploy to Server
+      - name: 🚀 Deploy to Server
         uses: wlixcc/SFTP-Deploy-Action@v1.0
         with:
           username: ${{ secrets.USER_AWS_DEPLOYER }}
@@ -34,3 +34,12 @@ jobs:
           local_path: './build/*'
           remote_path: '/home/${{ secrets.USER_AWS_DEPLOYER }}/${{ secrets.DIRECTORY_DEPLOY }}'
           args: '-o ConnectTimeout=5'
+          
+      - name: ":wrench: Setup SSH to Server"
+        uses: MrSquaare/ssh-setup-action@v1
+        with:
+          host: github.com
+          private-key: ${{ secrets.PRUEBA_KEY_AWS }}
+          
+      - name: ":fire: Restart apps"
+        run: sudo pm2 restart all
