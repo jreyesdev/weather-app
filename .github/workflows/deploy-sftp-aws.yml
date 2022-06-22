@@ -27,12 +27,7 @@ jobs:
         
       - name: 📂 Deploy to Server
         env:
-            PRIVATE_KEY: ${{ secrets.PRUEBA_KEY_AWS }}
             SOURCE: './build/*'
-            HOST: ${{ secrets.HOST_AWS_DEPLOY }}
-            USER: ${{ secrets.USER_AWS_DEPLOYER }}
-            REMOTE_PATH: ${{ secrets.DIRECTORY_DEPLOY }}
-            EXCLUDE: '/dist/, /node_modules/'
         run: |
-          echo "Desplegando a $HOST en directorio $REMOTE_PATH"
-          rsync -avzh --delete -e 'ssh -i $PRIVATE_KEY' --progress $SOURCE $USER@$HOST:/home/$USER/$REMOTE_PATH
+          echo "Desplegando a ${{ secrets.HOST_AWS_DEPLOY }} en directorio " ${{ secrets.DIRECTORY_DEPLOY }}
+          rsync -ravzh -e 'ssh -i ${{ secrets.PRUEBA_KEY_AWS }}' --delete --progress $SOURCE ${{ secrets.USER_AWS_DEPLOYER }}@${{ secrets.HOST_AWS_DEPLOY }}:/home/${{ secrets.USER_AWS_DEPLOYER }}/${{ secrets.DIRECTORY_DEPLOY }}
