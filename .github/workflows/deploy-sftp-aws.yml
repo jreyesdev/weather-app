@@ -11,12 +11,12 @@ jobs:
       - name: 🚚 Get latest code
         uses: actions/checkout@v3
         
-      - name: Use Node.js 16
+      - name: 🏅 Use Node.js 16
         uses: actions/setup-node@v2-beta
         with:
             node-version: '16'
       
-      - name: ":arrow_down: Install npm dependencies"
+      - name: ⏬ Install npm dependencies
         run: npm install
         
       - name: 🔨 Build Project
@@ -35,11 +35,11 @@ jobs:
           remote_path: '/home/${{ secrets.USER_AWS_DEPLOYER }}/${{ secrets.DIRECTORY_DEPLOY }}'
           args: '-o ConnectTimeout=5'
           
-      - name: ":wrench: Setup SSH to Server"
+      - name: ⚡ Setup SSH to Server
         uses: MrSquaare/ssh-setup-action@v1
         with:
-          host: github.com
+          host: ${{ secrets.HOST_AWS_DEPLOY }}
           private-key: ${{ secrets.PRUEBA_KEY_AWS }}
           
-      - name: ":fire: Restart apps"
+      - name: 🔥 Restart apps
         run: sudo pm2 restart all
