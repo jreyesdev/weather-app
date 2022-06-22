@@ -24,13 +24,15 @@ jobs:
           REACT_APP_OPENWEATHER_KEY: ${{ secrets.REACT_APP_OPENWEATHER_KEY }}
           REACT_APP_OPENWEATHER_URL: ${{ secrets.REACT_APP_OPENWEATHER_URL }}
         run: npm run build
-            
-      - name: "📂 Deploy to Server ${{ secrets.HOST_AWS_DEPLOY }}"
-        uses: easingthemes/ssh-deploy@v2
+        
+      - name: 📂 Deploy to Server
         env:
-            SSH_PRIVATE_KEY: ${{ secrets.PRUEBA_KEY_AWS }}
-            SOURCE: 'build/'
-            REMOTE_HOST: ${{ secrets.HOST_AWS_DEPLOY }}
-            REMOTE_USER: ${{ secrets.USER_AWS_DEPLOYER }}
-            TARGET: ${{ secrets.DIRECTORY_DEPLOY }}
+            PRIVATE_KEY: ${{ secrets.PRUEBA_KEY_AWS }}
+            SOURCE: './build/*'
+            HOST: ${{ secrets.HOST_AWS_DEPLOY }}
+            USER: ${{ secrets.USER_AWS_DEPLOYER }}
+            REMOTE_PATH: ${{ secrets.DIRECTORY_DEPLOY }}
             EXCLUDE: '/dist/, /node_modules/'
+        run: |
+          echo "Desplegando a $HOST en directorio $REMOTE_PATH"
+          rsync -avzh --delete -e 'ssh -i $PRIVATE_KEY' --progress $SOURCE $USER@$HOST:/home/$USER/$REMOTE_PATH
