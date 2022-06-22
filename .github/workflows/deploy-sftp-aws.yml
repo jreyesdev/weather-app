@@ -24,18 +24,11 @@ jobs:
           REACT_APP_OPENWEATHER_KEY: ${{ secrets.REACT_APP_OPENWEATHER_KEY }}
           REACT_APP_OPENWEATHER_URL: ${{ secrets.REACT_APP_OPENWEATHER_URL }}
         run: npm run build
-      
-      - name: Update apt
-        run: sudo apt-get update
-        
-      - name: Install rsync
-        run: sudo apt-get install rsync
             
-      - name: 📂 Deploy to Server ${{ secrets.HOST_AWS_DEPLOY }}
+      - name: "📂 Deploy to Server ${{ secrets.HOST_AWS_DEPLOY }}"
         uses: easingthemes/ssh-deploy@v2
         env:
             SSH_PRIVATE_KEY: ${{ secrets.PRUEBA_KEY_AWS }}
-            ARGS: '-rltgoDzvO --delete'
             SOURCE: 'build/'
             REMOTE_HOST: ${{ secrets.HOST_AWS_DEPLOY }}
             REMOTE_USER: ${{ secrets.USER_AWS_DEPLOYER }}
