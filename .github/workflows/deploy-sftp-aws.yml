@@ -35,11 +35,20 @@ jobs:
           remote_path: '/home/${{ secrets.USER_AWS_DEPLOYER }}/${{ secrets.DIRECTORY_DEPLOY }}'
           args: '-o ConnectTimeout=5'
           
-      - name: ⚡ Setup SSH to Server
-        uses: MrSquaare/ssh-setup-action@v1
+      - name: 🔥 Restart apps
+        uses: cross-the-world/ssh-scp-ssh-pipelines@latest
+        env:
+          WELCOME: "ssh scp ssh pipelines"
+          LASTSSH: "Doing something after copying"
         with:
           host: ${{ secrets.HOST_AWS_DEPLOY }}
-          private-key: ${{ secrets.PRUEBA_KEY_AWS }}
-          
-      - name: 🔥 Restart apps
-        run: sudo pm2 restart all
+          user: ${{ secrets.USER_AWS_DEPLOYER }}
+          key: ${{ secrets.PRUEBA_KEY_AWS }}
+          port: 22
+          connect_timeout: 10s
+          first_ssh: |
+            ls -la 
+            echo $WELCOME
+          last_ssh: |
+            echo $LASTSSH
+            sudo pm2 restart all
